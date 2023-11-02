@@ -43,12 +43,12 @@ namespace Lab4_23.Data
             // One to One
             modelBuilder.Entity<Student>()
                 .HasOne(m1 => m1.Locker)
-                .WithOne(m2 => m2.Student)
-                .HasForeignKey<Locker>(m1 => m1.Student);
+                .WithOne()
+                .HasForeignKey<Student>(m1 => m1.LockerId);
             
             // Many to Many
             modelBuilder.Entity<StudentTeacherRelation>()
-                .HasKey(ts => new { ts.Student, ts.Teacher });
+                .HasKey(ts => new { ts.StudentId, ts.TeacherId });
 
             modelBuilder.Entity<StudentTeacherRelation>()
                 .HasOne(ts => ts.Student)

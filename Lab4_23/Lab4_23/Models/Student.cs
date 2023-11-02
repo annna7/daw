@@ -13,7 +13,7 @@ namespace Lab4_23.Models
         // relations
         // many to one between students and universities
         public University? University { get; set; }
-        public Guid SchoolId { get; set; }
+        public Guid UniversityId { get; set; }
         
         // one to one between students and lockers
         public Locker? Locker { get; set; }
