@@ -4,3 +4,5 @@
 .git/
 **/appsettings*
 **/.vs/**
+*.csproj
+*.csproj.user
