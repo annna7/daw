@@ -54,5 +54,36 @@ namespace Lab4_23.Controllers
             
             return Ok(model1ById);
         }
+        
+        [HttpGet("student-include")]
+        public async Task<IActionResult> GetAllWithInclude()
+        {
+            var result = await _lab4Context.Universities.Include(s => s.Students).ThenInclude(m2 => m2.University)
+                .ToListAsync();
+            
+            return Ok(result);
+        }
+        
+        [HttpGet("student-join")]
+        public async Task<IActionResult> GetAllWithJoin()
+        {
+            var result = await _lab4Context.Universities.Join(_lab4Context.Students, university => university.Id, student => student.UniversityId,
+                (university, student) => new { university, student }).Select(ob => ob.university).ToListAsync();
+            
+            return Ok(result);
+        }
+        
+        [HttpGet("student-ordered")]
+        public async Task<IActionResult> GetAllOrdered()
+        {
+            var result = await _lab4Context.Students.OrderBy(s => s.FirstName).ToListAsync();
+            
+            // list query way
+            var result2 = await (from s in _lab4Context.Students
+                orderby s.FirstName
+                select s).ToListAsync();
+            
+            return Ok(result);
+        }
     }
 }
